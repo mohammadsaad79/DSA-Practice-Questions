@@ -1,0 +1,33 @@
+class Solution {
+public:
+    ListNode* reverse_LL(ListNode* head) {
+        ListNode* cur = head;
+        ListNode* prev = nullptr;
+        while(cur != nullptr){
+            ListNode* nextNode = cur -> next;
+            cur -> next = prev;
+            prev = cur;
+            cur = nextNode;
+        }
+        return prev;
+    }
+    bool isPalindrome(ListNode* head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while (fast != nullptr && fast -> next != nullptr) {
+            slow = slow -> next;
+            fast = fast -> next -> next;
+        }
+        ListNode* secondHalf = reverse_LL(slow);
+        ListNode* firstHalf = head;
+        ListNode* temp = secondHalf;
+        while (temp != nullptr) {
+            if (temp -> val != firstHalf -> val) {
+                return false;
+            }
+            temp = temp -> next;
+            firstHalf = firstHalf -> next;
+        }
+        return true;
+    }
+};
