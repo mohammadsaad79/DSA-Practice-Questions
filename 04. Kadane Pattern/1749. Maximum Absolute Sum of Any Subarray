@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int maxAbsoluteSum(vector<int>& nums) {
+        int n = nums.size();
+        int bestMax = nums[0];
+        int bestMin = nums[0];
+        int ans = abs(nums[0]);
+        for(int i = 1; i < n; i++) {
+            bestMin = min(nums[i], bestMin + nums[i]);
+            bestMax = max(nums[i], bestMax + nums[i]);
+            ans = max(ans, max(abs(bestMin), abs(bestMax)));
+        }
+        return ans;
+    }
+};
