@@ -1,0 +1,21 @@
+class Solution {
+public:
+    long long maxSubarraySum(vector<int>& nums, int k) {
+        int n = nums.size();
+        unordered_map<int, long long> f;
+        f[0] = 0;
+        long long sum = 0;
+        long long ans = LLONG_MIN;
+        for(int i = 0; i < n; i++) {
+            sum += nums[i];
+            int r = (i + 1) % k;
+            if(f.find(r) != f.end())
+                ans = max(ans, sum - f[r]);
+            if(f.find(r) == f.end())
+                f[r] = sum;
+            else
+                f[r] = min(f[r], sum);
+        }
+        return ans;
+    }
+};
